@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="basicLayout" template="/tiles/homeLayout.jsp">
+		<put-attribute name="title" value="HomeLayout" />
+		<put-attribute name="page_heading" value="User Home" />
+		<put-attribute name="page_crumbs" value="/tiles/page_crumbs.jsp" />
+		<put-attribute name="header" value="/tiles/header.jsp" />
+		<put-attribute name="menu" value="/tiles/menu.jsp" />
+		<put-attribute name="body" value="/tiles/body.jsp" />
+		<put-attribute name="footer" value="/tiles/footer.jsp" />
+	</definition>
+
+	<definition name="home" extends="basicLayout">
+		<put-attribute name="title" value="Welcome" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/tiles/body.jsp" />
+	</definition>
+	
+	<definition name="serviceRequest" extends="basicLayout">
+		<put-attribute name="title" value="Service Request" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/servicerequest/createServiceRequest.jsp" />
+	</definition>
+
+	<definition name="list" extends="basicLayout">
+		<put-attribute name="title" value="Service Request List" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/servicerequest/list.jsp" />
+	</definition>
+	
+	<definition name="serviceRequestView" extends="basicLayout">
+		<put-attribute name="title" value="Service Request List" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/servicerequest/view.jsp" />
+	</definition>
+	
+	<definition name="serviceRequestEdit" extends="basicLayout">
+		<put-attribute name="title" value="Service Request List" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/servicerequest/edit.jsp" />
+	</definition>
+	
+	<definition name="uploadLink" extends="basicLayout">
+		<put-attribute name="title" value="Upload Document" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/servicerequest/upload.jsp" />
+	</definition>
+	
+	<definition name="uploadSuccess" extends="basicLayout">
+		<put-attribute name="title" value="Upload Document" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/servicerequest/uploadSuccess.jsp" />
+	</definition>
+	
+	<definition name="chooseReport" extends="basicLayout">
+		<put-attribute name="title" value="Report Selection" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/report/chooseReport.jsp" />
+	</definition>
+	
+	<definition name="reviewReportLink" extends="basicLayout">
+		<put-attribute name="title" value="Review Report" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/report/reviewReport.jsp" />
+	</definition>
+	
+	<definition name="boltStatusReportLink" extends="basicLayout">
+		<put-attribute name="title" value="Review Report" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/report/boltStatusReport.jsp" />
+	</definition>
+	
+	<definition name="cadReportLink" extends="basicLayout">
+		<put-attribute name="title" value="Review Report" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/report/cadReport.jsp" />
+	</definition>
+	
+	<definition name="register" extends="basicLayout">
+		<put-attribute name="title" value="Review Report" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/user/registration.jsp" />
+	</definition>
+	
+	<definition name="login" extends="basicLayout">
+		<put-attribute name="title" value="Review Report" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/user/login.jsp" />
+	</definition>
+	
+	<definition name="changePassword" extends="basicLayout">
+		<put-attribute name="title" value="Review Report" />
+		<put-attribute name="page_crumbs" value="/jsp/pageCrumbs/userHome.jsp" />
+		<put-attribute name="body" value="/jsp/user/changePassword.jsp" />
+	</definition>
+	
+</tiles-definitions>

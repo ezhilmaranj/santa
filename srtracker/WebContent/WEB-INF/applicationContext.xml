@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:Logica.properties</value>
+		</property>
+	</bean>
+	
+	<bean name="myInterceptor" class="com.logica.srtracker.util.LoggingAndExceptionInterceptor" />
+	
+	<bean name="MyLoggingInterceptor" class="com.logica.srtracker.interceptor.LoginInterceptor"></bean>
+
+	<bean name="proxyCreator"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*BusinessService</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>myInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc_driverClassName}">
+		</property>
+		<property name="url" value="${jdbc_url}">
+		</property>
+		<property name="username" value="${jdbc_username}"></property>
+		<property name="password" value="${jdbc_password}"></property>
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">${hibernate_showsql}</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/logica/srtracker/data/ServiceRequest.hbm.xml</value>
+				<value>com/logica/srtracker/data/UserInfo.hbm.xml</value>
+				<value>
+					com/logica/srtracker/data/ServiceRequestLog.hbm.xml
+				</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="serviceRequestLogDAO"
+		class="com.logica.srtracker.dao.ServiceRequestLogDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"></ref>
+		</property>
+	</bean>
+	
+	<bean id="serviceRequestDAO" class="com.logica.srtracker.dao.ServiceRequestDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"></ref>
+		</property>
+	</bean>
+	
+	<bean id="userInfoDAO" class="com.logica.srtracker.dao.UserInfoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"></ref>
+		</property>
+	</bean>
+	
+	<bean id="serviceRequestBusinessService" class="com.logica.srtracker.bs.ServiceRequestBusinessService">
+	    <property name="serviceRequestDAO">
+	        <ref local="serviceRequestDAO"/>
+	    </property>
+	</bean>
+	
+	<bean id="userInfoBusinessService" class="com.logica.srtracker.bs.UserInfoBusinessService">
+	    <property name="userInfoDAO">
+	        <ref local="userInfoDAO"/>
+	    </property>
+	</bean>
+	
+	<bean id="serviceRequestLogBusinessService" class="com.logica.srtracker.bs.ServiceRequestLogBusinessService">
+	    <property name="serviceRequestLogDAO">
+	        <ref local="serviceRequestLogDAO"/>
+	    </property>
+	</bean>
+</beans>

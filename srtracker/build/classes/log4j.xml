@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="true">
+
+	<!-- ============================== -->
+	<!-- Append messages to the console -->
+	<!-- ============================== -->
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value=" %-5p %d{dd MMM yyyy HH:mm} %-40M	- %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ============================== -->
+	<!-- Append messages to file -->
+	<!-- ============================== -->
+
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="E:\logs\srtracker.log" />
+		<param name="Append" value="ture" />
+		<param name="MaxFileSize" value="500KB" />
+		<!-- Keep one backup file -->
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value=" %-5p %d{dd MMM yyyy HH:mm} %-40M	- %m%n" />
+		</layout>
+	</appender>
+
+
+	<!--<appender name="EMAIL" class="org.apache.log4j.net.SMTPAppender">
+		<param name="file" value="FLC.log" />
+		<param name="Append" value="false" />
+		<param name="MaxFileSize" value="500KB" />
+		Keep one backup file
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{dd MMM yyyy HH:mm:ss,S} [%t] %-17c{2} (%13F:%L) %3x - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="AdministratorEmail" class="org.apache.log4j.net.SMTPAppender">
+		<param name="BufferSize" value="2" />
+		<param name="SMTPHost" value="smtp.gmail.com" />
+		<param name="From" value="clriiftllog@gmail.com" />
+		<param name="To" value="ezhilmaran.j@gmail.com" />
+		<param name="Subject" value="FLC Log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="debug" />
+			<param name="LevelMax" value="fatal" />
+		</filter>
+	</appender>	-->
+	
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="1024" />
+		<appender-ref ref="FILE" />
+		<!-- <appender-ref ref="AdministratorEmail" /> -->
+	</appender>
+
+	<appender name="Logica-UIAppender" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%t]%-5p %25c{1}(%4L) %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="org.springframework" additivity="true">
+		<level value="ERROR" />
+		<appender-ref ref="Logica-UIAppender" />
+	</logger>
+
+	<logger name="org.apache.commons.beanutils" additivity="true">
+		<level value="INFO" />
+		<appender-ref ref="Logica-UIAppender" />
+	</logger>
+
+	<logger name="com.opensymphony.oscache" additivity="true">
+		<level value="ERROR" />
+		<appender-ref ref="Logica-UIAppender" />
+	</logger>
+
+	<!-- ================ -->
+	<!-- Limit categories -->
+	<!-- ================ -->
+
+	<logger name="com.logica">
+		<level value="DEBUG" />
+	</logger>
+
+
+	<!-- ======================= -->
+	<!-- Setup the Root category -->
+	<!-- ======================= -->
+
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ASYNC" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</log4j:configuration>
